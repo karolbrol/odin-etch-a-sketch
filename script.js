@@ -30,3 +30,19 @@ function addEASRow(size) {
     }
     EASContainer.appendChild(rowElement);
 }
+
+
+//drawing
+EASContainer.addEventListener('mouseover', (event) => {
+    if (event.target.classList.contains('eas-cell')) {
+        etch(event.target);
+    }
+})
+
+function etch(cell) {
+    const etchedClass = 'etched';
+    if (cell.classList.contains(etchedClass)) return;
+
+    cell.classList.add(etchedClass);
+    return;
+}

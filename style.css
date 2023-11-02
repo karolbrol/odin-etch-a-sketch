@@ -53,7 +53,9 @@ main {
     align-items: stretch;
 }
 .eas-cell {
-    margin: 1px;
     flex: 1 1 0;
-    background-color: lightcoral;
-}    
+    background-color: rgb(223, 220, 210);
+}
+.etched {
+    background-color:  rgb(65, 60, 46);
+}
