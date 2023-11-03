@@ -39,13 +39,23 @@ EASContainer.addEventListener('mouseover', (event) => {
         etch(event.target);
     }
 })
-
+/* Version with one color
 function etch(cell) {
     const etchedClass = 'etched';
     if (cell.classList.contains(etchedClass)) return;
 
     cell.classList.add(etchedClass);
     return;
+}
+*/
+
+//Iteratively darken
+function etch(cell) {
+    let bgColor = parseRGB(window.getComputedStyle(cell, null).backgroundColor)
+    bgColor.r -= 25;
+    bgColor.g -= 25;
+    bgColor.b -= 25;
+    cell.style.backgroundColor = `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`;
 }
 
 //handle resize
@@ -59,4 +69,11 @@ function getGridSize() {
         return null;
     }
     return gridSize;
+}
+
+function parseRGB(textRGB) {
+    //convert from 'rgb(#,#,#)' format to object
+    textRGB = textRGB.slice(4,-1);
+    textRGB = textRGB.split(',');
+    return {r: +textRGB[0], g: +textRGB[1], b: +textRGB[2]};
 }
