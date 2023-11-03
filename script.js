@@ -7,6 +7,7 @@ window.addEventListener('load', makeGrid(INITIAL_GRID))
 
 function makeGrid(size) {
 
+    if (size === null) return;
     clearGrid();
 
     for (let row = 0; row < size; row++) {
@@ -45,4 +46,17 @@ function etch(cell) {
 
     cell.classList.add(etchedClass);
     return;
+}
+
+//handle resize
+const resizeBtn = document.querySelector('#resize-btn');
+resizeBtn.addEventListener('click', () => {makeGrid(getGridSize())});
+
+function getGridSize() {
+    const gridSize = +window.prompt('Specify the grid size from range 2 to 100.')
+    if (!(Number.isInteger(gridSize) && gridSize>= 2 && gridSize <= 100)) {
+        window.alert('Invalid grid size!');
+        return null;
+    }
+    return gridSize;
 }

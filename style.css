@@ -20,7 +20,7 @@ footer {
     background-color: rgb(17, 17, 20);
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding: .5em;
 }
@@ -33,6 +33,19 @@ main {
     justify-content: center;
     align-items: center;
     padding: .5em;
+}
+
+#resize-btn {
+    padding: .2em .8em;
+    background-color: blueviolet;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border: none;
+    border-radius: .7em;
+}
+
+#resize-btn:hover {
+    filter: hue-rotate(270deg) brightness(1.4);
 }
 
 #eas-container {
@@ -59,3 +72,4 @@ main {
 .etched {
     background-color:  rgb(65, 60, 46);
 }
+
