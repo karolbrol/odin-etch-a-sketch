@@ -6,10 +6,8 @@ const EASContainer = document.querySelector('#eas-container');
 window.addEventListener('load', makeGrid(INITIAL_GRID))
 
 function makeGrid(size) {
-
     if (size === null) return;
     clearGrid();
-
     for (let row = 0; row < size; row++) {
         addEASRow(size);
     }
@@ -36,26 +34,36 @@ function addEASRow(size) {
 //drawing
 EASContainer.addEventListener('mouseover', (event) => {
     if (event.target.classList.contains('eas-cell')) {
-        etch(event.target);
+        changeBrightness(event.target, -0.1);
     }
 })
-/* Version with one color
-function etch(cell) {
-    const etchedClass = 'etched';
-    if (cell.classList.contains(etchedClass)) return;
 
-    cell.classList.add(etchedClass);
-    return;
+//Chanbe cell filter darkness by increment
+function changeBrightness(cell, increment) {
+    const brightness = getFilterBrightness(cell);
+    let newBrightness;
+    switch (true) {
+        case (brightness+increment > 1):
+            newBrightness = 1;
+            break;
+        case (brightness+increment < 0):
+            newBrightness = 0;
+            break;
+        default:
+            newBrightness = brightness+increment;
+    }
+    cell.style.filter = `brightness(${newBrightness})`;
 }
-*/
 
-//Iteratively darken
-function etch(cell) {
-    let bgColor = parseRGB(window.getComputedStyle(cell, null).backgroundColor)
-    bgColor.r -= 25;
-    bgColor.g -= 25;
-    bgColor.b -= 25;
-    cell.style.backgroundColor = `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`;
+function getFilterBrightness(element) { //get brightness value in number format (0 to 1)
+    const filter = element.style.filter;
+    if (!filter.includes('brightness')) return 1;   // brightness filter not applied
+    let brightness = filter.match(/(?:brightness\()(\d*\.?\d*\%?)/)[1];
+    if (brightness.includes('%')) {     // convert %value to number
+        brightness = brightness.replace('%','');
+        brightness /= 100;
+    }
+    return +brightness;
 }
 
 //handle resize
